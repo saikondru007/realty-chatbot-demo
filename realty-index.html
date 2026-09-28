@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lone Star Realty Group — Dallas, TX</title>
+<style>
+  :root{
+    --brand:#1f5fa8; --brand-dark:#174a85; --brand-light:#dbeafe;
+    --ink:#1a2b3c; --muted:#5b7186; --bg:#f5f8fb; --card:#ffffff;
+    --accent:#d9a441; --accent-dark:#b9862f;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:var(--bg); line-height:1.6;}
+  /* ---------- NAV ---------- */
+  nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.94); backdrop-filter:blur(8px); border-bottom:1px solid #e2e9f0;}
+  .nav-inner{max-width:1100px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between;}
+  .logo{display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.15rem; color:var(--ink);}
+  .logo .mark{width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg,var(--brand),var(--brand-dark)); display:flex; align-items:center; justify-content:center; font-size:20px;}
+  .nav-links{display:flex; gap:26px; align-items:center;}
+  .nav-links a{text-decoration:none; color:var(--muted); font-weight:600; font-size:.95rem;}
+  .nav-links a:hover{color:var(--brand-dark);}
+  .btn{display:inline-block; background:var(--brand); color:#fff; border:none; padding:12px 24px; border-radius:999px; font-weight:700; font-size:.95rem; cursor:pointer; text-decoration:none; transition:transform .15s, background .15s;}
+  .btn:hover{background:var(--brand-dark); transform:translateY(-1px);}
+  .btn-ghost{background:#fff; color:var(--brand-dark); border:2px solid var(--brand-light);}
+  .btn-ghost:hover{background:var(--brand-light);}
+  /* ---------- HERO ---------- */
+  .hero{max-width:1100px; margin:0 auto; padding:72px 24px 56px; display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center;}
+  .hero h1{font-size:3rem; line-height:1.15; letter-spacing:-1px; margin-bottom:16px;}
+  .hero h1 span{color:var(--brand);}
+  .hero p{color:var(--muted); font-size:1.1rem; margin-bottom:28px; max-width:480px;}
+  .hero-cta{display:flex; gap:14px; flex-wrap:wrap;}
+  .hero-badges{display:flex; gap:22px; margin-top:34px; flex-wrap:wrap;}
+  .badge{display:flex; align-items:center; gap:8px; font-size:.9rem; font-weight:600; color:var(--muted);}
+  .badge .star{color:var(--accent); font-size:1.1rem;}
+  .hero-art{background:linear-gradient(135deg,#1f5fa8,#174a85 60%,#0f3358); border-radius:28px; min-height:340px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;}
+  .hero-art::after{content:""; position:absolute; width:420px; height:420px; border-radius:50%; background:rgba(217,164,65,.18); top:-120px; right:-120px;}
+  .hero-art .big{font-size:120px; position:relative; z-index:1; filter:drop-shadow(0 12px 24px rgba(0,0,0,.25));}
+  .hero-art .tag{position:absolute; bottom:22px; left:22px; right:22px; z-index:1; background:#fff; border-radius:16px; padding:14px 18px; font-size:.9rem; box-shadow:0 8px 24px rgba(0,0,0,.18);}
+  .hero-art .tag b{color:var(--brand-dark);}
+  /* ---------- SECTIONS ---------- */
+  .section{max-width:1100px; margin:0 auto; padding:48px 24px;}
+  .section h2{font-size:1.9rem; letter-spacing:-.5px; margin-bottom:8px;}
+  .section .sub{color:var(--muted); margin-bottom:32px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px;}
+  .card{background:var(--card); border-radius:18px; padding:26px; border:1px solid #e2e9f0; transition:transform .15s, box-shadow .15s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(31,95,168,.12);}
+  .card .icon{font-size:32px; margin-bottom:12px;}
+  .card h3{font-size:1.1rem; margin-bottom:6px;}
+  .card p{color:var(--muted); font-size:.93rem;}
+  .card .price{margin-top:12px; font-weight:800; color:var(--brand-dark); font-size:1.25rem;}
+  .card .specs{display:flex; gap:14px; margin-top:8px; font-size:.88rem; color:var(--muted); font-weight:600;}
+  .card .area-tag{display:inline-block; margin-top:10px; background:var(--brand-light); color:var(--brand-dark); font-size:.78rem; font-weight:700; padding:4px 12px; border-radius:999px;}
+  .card .ask{margin-top:14px; display:inline-block; font-size:.88rem; font-weight:700; color:var(--brand); cursor:pointer; text-decoration:underline;}
+  .card .ask:hover{color:var(--brand-dark);}
+  .quote{font-style:italic;}
+  .quote b{display:block; margin-top:12px; font-style:normal; color:var(--ink);}
+  .quote .stars{color:var(--accent); font-style:normal;}
+  .info{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .info .card h3{margin-bottom:12px;}
+  footer{background:#12283d; color:#b9cbdd; margin-top:40px;}
+  .footer-inner{max-width:1100px; margin:0 auto; padding:36px 24px; display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; font-size:.9rem;}
+  footer b{color:#fff;}
+  .demo-note{max-width:1100px; margin:0 auto; padding:0 24px 28px; color:#8ba0b5; font-size:.8rem;}
+  @media(max-width:760px){ .hero{grid-template-columns:1fr; padding-top:48px;} .hero h1{font-size:2.2rem;} .info{grid-template-columns:1fr;} .nav-links a:not(.btn){display:none;} }
+
+  /* ---------- CHAT WIDGET ---------- */
+  #chat-launcher{position:fixed; right:24px; bottom:24px; width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--brand),var(--brand-dark)); border:none; cursor:pointer; font-size:28px; box-shadow:0 10px 30px rgba(31,95,168,.45); z-index:100; transition:transform .15s; display:flex; align-items:center; justify-content:center;}
+  #chat-launcher:hover{transform:scale(1.07);}
+  #chat-badge{position:absolute; top:-4px; right:-4px; background:#ef4444; color:#fff; font-size:.7rem; font-weight:800; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+  #chat-widget{position:fixed; right:24px; bottom:100px; width:384px; max-width:calc(100vw - 32px); height:580px; max-height:calc(100vh - 130px); background:#fff; border-radius:22px; box-shadow:0 24px 70px rgba(18,40,61,.28); z-index:100; display:none; flex-direction:column; overflow:hidden; border:1px solid #e2e9f0;}
+  #chat-widget.open{display:flex; animation:pop .22s ease-out;}
+  @keyframes pop{from{transform:translateY(16px) scale(.97); opacity:0;} to{transform:none; opacity:1;}}
+  .chat-header{background:linear-gradient(135deg,var(--brand),var(--brand-dark)); color:#fff; padding:16px 18px; display:flex; align-items:center; gap:12px;}
+  .chat-avatar{width:42px; height:42px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0;}
+  .chat-header .t{flex:1;}
+  .chat-header .t b{display:block; font-size:.98rem;}
+  .chat-header .t span{font-size:.78rem; opacity:.92; display:flex; align-items:center; gap:6px;}
+  .dot{width:8px; height:8px; border-radius:50%; background:#4ade80; display:inline-block;}
+  .chat-close{background:rgba(255,255,255,.18); border:none; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:15px;}
+  .chat-close:hover{background:rgba(255,255,255,.32);}
+  #chat-body{flex:1; overflow-y:auto; padding:18px 14px; background:#f4f7fb; display:flex; flex-direction:column; gap:10px;}
+  .msg{max-width:82%; padding:11px 15px; border-radius:18px; font-size:.92rem; line-height:1.5; animation:fadein .2s ease-out;}
+  @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+  .msg.bot{background:#fff; border:1px solid #e6ebf2; border-bottom-left-radius:6px; align-self:flex-start; color:var(--ink); box-shadow:0 2px 6px rgba(0,0,0,.04);}
+  .msg.user{background:var(--brand); color:#fff; border-bottom-right-radius:6px; align-self:flex-end;}
+  .msg.typing{display:flex; gap:5px; padding:15px 18px;}
+  .msg.typing i{width:8px; height:8px; border-radius:50%; background:#9db4c8; animation:blink 1.1s infinite;}
+  .msg.typing i:nth-child(2){animation-delay:.18s;} .msg.typing i:nth-child(3){animation-delay:.36s;}
+  @keyframes blink{0%,60%,100%{opacity:.25; transform:none;} 30%{opacity:1; transform:translateY(-3px);}}
+  #chips{display:flex; gap:8px; padding:10px 14px 4px; flex-wrap:wrap; background:#f4f7fb;}
+  .chip{border:1.5px solid var(--brand); color:var(--brand-dark); background:#fff; border-radius:999px; padding:7px 14px; font-size:.83rem; font-weight:600; cursor:pointer; transition:background .15s;}
+  .chip:hover{background:var(--brand-light);}
+  .chat-input{display:flex; gap:8px; padding:12px 14px 16px; background:#f4f7fb; border-top:1px solid #e6ebf2;}
+  .chat-input input{flex:1; border:1.5px solid #d4dde8; border-radius:999px; padding:11px 16px; font-size:.92rem; outline:none; font-family:inherit;}
+  .chat-input input:focus{border-color:var(--brand);}
+  .chat-input button{background:var(--brand); color:#fff; border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:18px; flex-shrink:0;}
+  .chat-input button:hover{background:var(--brand-dark);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><span class="mark">🏡</span> Lone Star Realty Group</div>
+    <div class="nav-links">
+      <a href="#listings">Listings</a>
+      <a href="#services">Services</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+      <a href="tel:+12145550147">(214) 555-0147</a>
+      <a class="btn" href="#" onclick="openChat();return false;">Book a Viewing</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div>
+    <h1>Find your place in <span>Dallas.</span></h1>
+    <p>From first homes to forever homes — Lone Star Realty Group guides buyers and sellers across the Dallas–Fort Worth metroplex with local expertise and straight-shootin' advice.</p>
+    <div class="hero-cta">
+      <button class="btn" onclick="openChat()">💬 Chat with Dusty</button>
+      <a class="btn btn-ghost" href="#listings">Browse listings</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge"><span class="star">★★★★★</span> 4.9 · 320+ reviews</span>
+      <span class="badge">✅ Licensed TX brokerage</span>
+      <span class="badge">🤠 200+ families housed</span>
+    </div>
+  </div>
+  <div class="hero-art">
+    <span class="big">🏡</span>
+    <div class="tag"><b>Meet Dusty, our AI assistant</b> — click the chat bubble to search homes, book a viewing, or get a free home valuation.</div>
+  </div>
+</header>
+
+<section class="section" id="listings">
+  <h2>Featured listings</h2>
+  <p class="sub">A taste of what's on the market right now.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="icon">🏡</div>
+      <h3>Craftsman Charmer</h3>
+      <p>4812 Swiss Ave, Dallas, TX 75214<br>Updated 1920s craftsman with wraparound porch, chef's kitchen, and a big oak-shaded backyard.</p>
+      <div class="specs"><span>🛏️ 4 bd</span><span>🛁 3 ba</span><span>📐 2,410 sqft</span></div>
+      <div class="price">$485,000</div>
+      <span class="area-tag">Lakewood</span><br>
+      <span class="ask" onclick="askAbout('Tell me about the Lakewood home')">💬 Ask Dusty about this home</span>
+    </div>
+    <div class="card">
+      <div class="icon">🏙️</div>
+      <h3>Uptown Skyline Condo</h3>
+      <p>2210 N Houston St #1804, Dallas, TX 75219<br>Corner-unit condo with floor-to-ceiling windows, skyline views, pool, gym, and 2 garage spots.</p>
+      <div class="specs"><span>🛏️ 2 bd</span><span>🛁 2 ba</span><span>📐 1,180 sqft</span></div>
+      <div class="price">$329,000</div>
+      <span class="area-tag">Uptown</span><br>
+      <span class="ask" onclick="askAbout('Tell me about the Uptown condo')">💬 Ask Dusty about this home</span>
+    </div>
+    <div class="card">
+      <div class="icon">🏘️</div>
+      <h3>Lake Highlands Family Home</h3>
+      <p>7308 Lindsley Ave, Dallas, TX 75214<br>Spacious two-story on a quiet cul-de-sac — game room, study, and a backyard built for cookouts.</p>
+      <div class="specs"><span>🛏️ 5 bd</span><span>🛁 4 ba</span><span>📐 3,050 sqft</span></div>
+      <div class="price">$625,000</div>
+      <span class="area-tag">Lake Highlands</span><br>
+      <span class="ask" onclick="askAbout('Tell me about the Lake Highlands home')">💬 Ask Dusty about this home</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <h2>How we help</h2>
+  <p class="sub">Buying or selling — we've got your back.</p>
+  <div class="grid">
+    <div class="card"><div class="icon">🔑</div><h3>Buy a Home</h3><p>From pre-approval to closing day, we handle the search, the negotiation, and the paperwork.</p></div>
+    <div class="card"><div class="icon">💰</div><h3>Sell Your Home</h3><p>Pro photography, staging advice, and pricing strategy that gets top dollar — fast.</p></div>
+    <div class="card"><div class="icon">📊</div><h3>Free Home Valuation</h3><p>Curious what your place is worth? Get a no-pressure market analysis in 24 hours.</p></div>
+    <div class="card"><div class="icon">🚚</div><h3>Relocation Help</h3><p>Moving to DFW? Virtual tours, neighborhood guides, and a soft landing.</p></div>
+  </div>
+</section>
+
+<section class="section" id="testimonials">
+  <h2>Happy homeowners</h2>
+  <p class="sub">Real reviews from Dallas families.</p>
+  <div class="grid">
+    <div class="card quote"><span class="stars">★★★★★</span><p>"As first-time buyers we had a hundred questions. The team answered every one and got us under contract in two weeks — below asking!"</p><b>— Maria &amp; James T., Lakewood</b></div>
+    <div class="card quote"><span class="stars">★★★★★</span><p>"Sold our house $18k over asking in six days. Their pricing strategy and photos were worth every penny of commission."</p><b>— Denise W., Plano</b></div>
+    <div class="card quote"><span class="stars">★★★★★</span><p>"Relocated from Austin sight unseen. Virtual tours, honest neighborhood advice, zero pressure. Couldn't ask for more."</p><b>— The Patel Family, Frisco</b></div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <h2>Get in touch</h2>
+  <p class="sub">Call, email, or just say howdy in the chat.</p>
+  <div class="info">
+    <div class="card">
+      <h3>📍 Our office</h3>
+      <p>2100 Ross Ave, Suite 900<br>Dallas, TX 75201<br><br>📞 <a href="tel:+12145550147" style="color:var(--brand-dark);font-weight:700;">(214) 555-0147</a><br>✉️ hello@lonestarrealty.example</p>
+    </div>
+    <div class="card">
+      <h3>🕘 Office hours</h3>
+      <p>Mon–Fri: 9:00 AM – 6:00 PM<br>Saturday: 10:00 AM – 4:00 PM<br>Sunday: By appointment<br><br>Our AI assistant Dusty is here <b>24/7</b> — tap the chat bubble anytime. 🤠</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div><b>Lone Star Realty Group</b><br>2100 Ross Ave, Suite 900, Dallas, TX 75201<br>Licensed Texas Real Estate Brokerage</div>
+    <div>📞 (214) 555-0147<br>✉️ hello@lonestarrealty.example</div>
+    <div>Mon–Fri 9–6 · Sat 10–4<br>© 2026 Lone Star Realty Group</div>
+  </div>
+</footer>
+<p class="demo-note">Demo portfolio piece — "Lone Star Realty Group" is a fictional brokerage created to showcase an AI chat assistant for real-estate businesses.</p>
+
+<!-- ================= CHAT WIDGET ================= -->
+<button id="chat-launcher" onclick="toggleChat()" aria-label="Open chat">💬<span id="chat-badge">1</span></button>
+
+<div id="chat-widget" role="dialog" aria-label="Lone Star Realty Group chat">
+  <div class="chat-header">
+    <div class="chat-avatar">🤠</div>
+    <div class="t"><b>Dusty — AI Assistant</b><span><span class="dot"></span> Online · replies instantly</span></div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div id="chat-body"></div>
+  <div id="chips"></div>
+  <div class="chat-input">
+    <input id="chat-text" type="text" placeholder="Type your message…" autocomplete="off" onkeydown="if(event.key==='Enter')sendUser()">
+    <button onclick="sendUser()" aria-label="Send">➤</button>
+  </div>
+</div>
+
+<script>
+/* ============ Dusty — rule-based demo AI engine ============ */
+const body = document.getElementById('chat-body');
+const chipsEl = document.getElementById('chips');
+const inputEl = document.getElementById('chat-text');
+const launcher = document.getElementById('chat-launcher');
+const badge = document.getElementById('chat-badge');
+const widget = document.getElementById('chat-widget');
+
+let greeted = false;
+let convo = { mode:'idle', step:0, data:{} }; // idle | searchq | viewing | seller
+
+function openChat(){ widget.classList.add('open'); badge.style.display='none'; if(!greeted){ greeted=true; greet(); } inputEl.focus(); }
+function toggleChat(){ widget.classList.contains('open') ? widget.classList.remove('open') : openChat(); }
+function askAbout(q){ openChat(); setTimeout(()=>{ addUserMsg(q); clearChips(); handleInput(q,false); }, 500); }
+
+function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function fmt(n){ return '$'+n.toLocaleString('en-US'); }
+
+function addMsg(text, who){
+  const m=document.createElement('div');
+  m.className='msg '+who; m.innerHTML=text;
+  body.appendChild(m); body.scrollTop=body.scrollHeight;
+}
+function addUserMsg(text){
+  const m=document.createElement('div');
+  m.className='msg user'; m.textContent=text;
+  body.appendChild(m); body.scrollTop=body.scrollHeight;
+}
+function showTyping(cb){
+  const t=document.createElement('div');
+  t.className='msg bot typing'; t.id='typing-bubble';
+  t.innerHTML='<i></i><i></i><i></i>';
+  body.appendChild(t); body.scrollTop=body.scrollHeight;
+  setTimeout(()=>{ const b=document.getElementById('typing-bubble'); if(b) b.remove(); cb(); }, 650+Math.random()*500);
+}
+function botSay(html, chips){
+  showTyping(()=>{ addMsg(html,'bot'); renderChips(chips||[]); });
+}
+function renderChips(chips){
+  chipsEl.innerHTML='';
+  chips.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='chip'; b.textContent=c.label;
+    b.onclick=()=>{ addUserMsg(c.label); clearChips(); handleInput(c.value||c.label, true); };
+    chipsEl.appendChild(b);
+  });
+}
+function clearChips(){ chipsEl.innerHTML=''; }
+
+/* ---------- listings data ---------- */
+const LISTINGS=[
+  {id:1, emoji:'🏡', name:'Craftsman Charmer', addr:'4812 Swiss Ave, Dallas, TX 75214', price:485000, beds:4, baths:3, sqft:2410, area:'Lakewood', keys:['lakewood','craftsman','swiss'], blurb:'Updated 1920s craftsman with wraparound porch, chef\u2019s kitchen, and a big oak-shaded backyard.'},
+  {id:2, emoji:'🏙️', name:'Uptown Skyline Condo', addr:'2210 N Houston St #1804, Dallas, TX 75219', price:329000, beds:2, baths:2, sqft:1180, area:'Uptown', keys:['uptown','condo','houston'], blurb:'Corner-unit condo with floor-to-ceiling windows, skyline views, pool, gym, and 2 garage spots.'},
+  {id:3, emoji:'🏘️', name:'Lake Highlands Family Home', addr:'7308 Lindsley Ave, Dallas, TX 75214', price:625000, beds:5, baths:4, sqft:3050, area:'Lake Highlands', keys:['lake highlands','lindsley','family home'], blurb:'Spacious two-story on a quiet cul-de-sac \u2014 game room, study, and a backyard built for cookouts.'}
+];
+
+function listingCard(l, withBook){
+  return `${l.emoji} <b>${esc(l.name)}</b> — ${fmt(l.price)}<br>`+
+    `📍 ${esc(l.addr)}<br>`+
+    `🛏️ ${l.beds} bd · 🛁 ${l.baths} ba · 📐 ${l.sqft.toLocaleString()} sqft · <b>${esc(l.area)}</b><br>`+
+    `<span style="color:#5b7186">${esc(l.blurb)}</span>`+
+    (withBook?`<br><br>Want to see it in person? Tap <b>📅 Book a viewing</b> below!`:'');
+}
+
+const HOME_CHIPS=[
+  {label:'🏠 Search homes', value:'search homes'},
+  {label:'📅 Book a viewing', value:'book a viewing'},
+  {label:'💰 Sell my home', value:'sell my home'},
+  {label:'❓ Buying process', value:'buying process'}
+];
+
+function greet(){
+  botSay("Howdy! 🤠 I'm <b>Dusty</b>, the AI assistant for <b>Lone Star Realty Group</b> here in Dallas.<br><br>I can help you <b>search homes</b> by budget and bedrooms, <b>book a viewing</b>, answer questions about <b>buying or selling</b>, or get you a <b>free home valuation</b>. What are y'all looking for today?", HOME_CHIPS);
+}
+
+/* ---------- intent detection ---------- */
+function intent(t){
+  const s=t.toLowerCase();
+  if(/(^|\s)(hi|hii+|hello|hey|yo|howdy|good\s?(morning|afternoon|evening))\b/.test(s)) return 'greeting';
+  if(/sell|selling|list my|valuation|worth|how much.*(my|our).*(home|house|worth)/.test(s)) return 'sell';
+  if(/book|viewing|tour|schedule.*(view|tour|visit)|see.*(house|home|condo|property)|visit.*(house|home)/.test(s)) return 'viewing';
+  if(/commission|how much.*(charge|cost)|your (fee|rate)|realtor fee/.test(s)) return 'commission';
+  if(/pre-?approval|preapprove|financ|mortgage|loan|lender/.test(s)) return 'financing';
+  if(/process|how.*(buy|work|start)|first.?time|steps to buy/.test(s)) return 'process';
+  if(/area|neighborhood|where.*(serve|work|cover|located)|service area|cities/.test(s)) return 'areas';
+  if(/search|find|looking for|show me|under \$|under \d/.test(s)) return 'search';
+  if(/(\d+)\s*(k\b|bed|br\b|bedroom)/.test(s)) return 'search';
+  if(/tell me about|more (info|detail)|that (home|house|condo|listing)/.test(s)) return 'aboutListing';
+  if(/lakewood|uptown|highlands|swiss|lindsley|houston st|craftsman|condo/.test(s)) return 'aboutListing';
+  if(/price|cost of|how much is/.test(s)) return 'aboutListing';
+  if(/thank|thanks|thx|great|awesome|perfect/.test(s)) return 'thanks';
+  if(/bye|goodbye|see you/.test(s)) return 'bye';
+  if(/human|person|real|agent|realtor|call me|phone|number|contact/.test(s)) return 'human';
+  return 'fallback';
+}
+
+/* ---------- search helpers ---------- */
+function parseBudget(s){
+  let m=s.match(/(?:under|below|max|up to|around|about)\s*\$?\s*(\d[\d,]*)\s*(k)?/);
+  if(m){ let n=parseInt(m[1].replace(/,/g,''),10); if(m[2]||n<3000) n*=1000; return n; }
+  m=s.match(/\$?\s*(\d[\d,]*)\s*k\b/);
+  if(m) return parseInt(m[1].replace(/,/g,''),10)*1000;
+  m=s.match(/\$\s*(\d[\d,]{3,})/);
+  if(m) return parseInt(m[1].replace(/,/g,''),10);
+  return null;
+}
+function parseBeds(s){
+  const m=s.match(/(\d+)\s*(?:bed|br\b|bedroom)/);
+  return m ? parseInt(m[1],10) : null;
+}
+function findListingByKeyword(s){
+  s=s.toLowerCase();
+  return LISTINGS.find(l=>l.keys.some(k=>s.includes(k)));
+}
+
+function doSearch(raw){
+  const budget=parseBudget(raw), beds=parseBeds(raw);
+  let results=LISTINGS.slice();
+  if(budget!==null) results=results.filter(l=>l.price<=budget);
+  if(beds!==null) results=results.filter(l=>l.beds>=beds);
+  const bits=[];
+  if(budget!==null) bits.push('under <b>'+fmt(budget)+'</b>');
+  if(beds!==null) bits.push('<b>'+beds+'+ bedrooms</b>');
+  const crit=bits.length?bits.join(' and '):'all of our featured homes';
+  if(results.length===0){
+    botSay("Hmm, I couldn't find a match for "+crit+" among our featured listings. 🤠<br><br>Our full MLS access covers hundreds more across DFW — an agent can run a wider search for you. Want me to have one call you?",
+      [{label:'📞 Have an agent call me',value:'human'},{label:'🔍 Try another search',value:'search homes'}]);
+    return;
+  }
+  let html=`I found <b>${results.length}</b> match${results.length>1?'es':''} ${crit}:<br><br>`+
+    results.map(l=>listingCard(l,false)).join('<br><br>—<br><br>');
+  const chips=results.map(l=>({label:`📅 View: ${l.area}`, value:'VIEW:'+l.id}));
+  chips.push({label:'🔍 New search', value:'search homes'});
+  botSay(html, chips);
+}
+
+function startSearchQ(){
+  convo={mode:'searchq', step:1, data:{}};
+  botSay("You got it! 🔍 Tell me what you're looking for — for example:<br><br>• <i>\"3 bed under 500k\"</i><br>• <i>\"condo under 350k\"</i><br>• <i>\"5 bedroom\"</i>",
+    [{label:'Show everything', value:'SHOWALL'},{label:'Cancel', value:'CANCEL'}]);
+}
+function searchQStep(raw){
+  const t=raw.trim();
+  if(/^cancel$/i.test(t)||t==='CANCEL'){ convo={mode:'idle',step:0,data:{}}; botSay("No problem! Anything else I can help with?", HOME_CHIPS); return; }
+  convo={mode:'idle',step:0,data:{}};
+  if(t==='SHOWALL') doSearch(''); else doSearch(t);
+}
+
+/* ---------- viewing booking flow ---------- */
+function startViewing(listingId){
+  convo={mode:'viewing', step:1, data:{listingId:listingId||null}};
+  const chips=LISTINGS.map(l=>({label:`${l.emoji} ${l.area} — ${fmt(l.price)}`, value:'VL:'+l.id}));
+  chips.push({label:'Just browsing', value:'VL:none'});
+  chips.push({label:'Cancel', value:'CANCEL'});
+  botSay("Let's get you a private tour! 🏡<br>Which property would you like to see?", chips);
+}
+function viewingStep(raw){
+  const t=raw.trim();
+  if(/^cancel$/i.test(t)||t==='CANCEL'){ convo={mode:'idle',step:0,data:{}}; botSay("No worries — the homes aren't going anywhere! 😄 Anything else?", HOME_CHIPS); return; }
+  const d=convo.data;
+  if(convo.step===1){
+    if(t.startsWith('VL:')){
+      const v=t.slice(3);
+      d.listingId = v==='none' ? null : parseInt(v,10);
+    } else {
+      const found=findListingByKeyword(t);
+      if(!found){ botSay("Which of our featured listings did you mean? Pick one below 👇",
+        LISTINGS.map(l=>({label:`${l.emoji} ${l.area}`, value:'VL:'+l.id}))); return; }
+      d.listingId=found.id;
+    }
+    convo.step=2;
+    const l=LISTINGS.find(x=>x.id===d.listingId);
+    botSay((l?`Great choice — <b>${esc(l.name)}</b>! 😍<br>`:'Got it! ')+"What's your <b>full name</b>?");
+  } else if(convo.step===2){
+    if(t.length<2){ botSay("Could you share your full name so we can reserve the tour for you?"); return; }
+    d.name=t; convo.step=3;
+    botSay(`Thanks, ${esc(t.split(' ')[0])}! What's the best <b>phone number</b> to reach you at? (10 digits)`);
+  } else if(convo.step===3){
+    const digits=t.replace(/\D/g,'');
+    if(digits.length<10){ botSay("That number looks incomplete — could you enter your <b>10-digit</b> phone number?"); return; }
+    d.phone='('+digits.slice(0,3)+') '+digits.slice(3,6)+'-'+digits.slice(6,10);
+    convo.step=4;
+    botSay("And your <b>email address</b>? We'll send the tour confirmation there.");
+  } else if(convo.step===4){
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(t)){ botSay("Hmm, that email doesn't look quite right. Could you double-check it?"); return; }
+    d.email=t; convo.step=5;
+    botSay("Almost done! When works best for your tour?",
+      [{label:'This weekend',value:'WHEN:This weekend'},{label:'Weekday evening',value:'WHEN:Weekday evening'},{label:'Weekday morning',value:'WHEN:Weekday morning'},{label:'Cancel',value:'CANCEL'}]);
+  } else if(convo.step===5){
+    d.when = t.startsWith('WHEN:') ? t.slice(5) : t;
+    convo.step=6;
+    const l=LISTINGS.find(x=>x.id===d.listingId);
+    const ref='LSR-'+Math.floor(1000+Math.random()*9000);
+    d.ref=ref;
+    botSay(`Here's your tour request summary 📋<br><br>🏡 <b>Property:</b> ${l?esc(l.name)+' — '+fmt(l.price):'General tour'}<br>👤 <b>Name:</b> ${esc(d.name)}<br>📞 <b>Phone:</b> ${esc(d.phone)}<br>✉️ <b>Email:</b> ${esc(d.email)}<br>🗓️ <b>Preferred:</b> ${esc(d.when)}<br><br>One of our agents will confirm your exact tour time shortly. Submit this request?`,
+      [{label:'✅ Confirm tour',value:'CONFIRM'},{label:'Start over',value:'RESTART'},{label:'Cancel',value:'CANCEL'}]);
+  } else if(convo.step===6){
+    if(t==='CONFIRM'){
+      const l=LISTINGS.find(x=>x.id===d.listingId);
+      convo={mode:'idle',step:0,data:{}};
+      botSay(`🎉 Tour requested, ${esc(d.name.split(' ')[0])}!<br><br>Reference: <b>${d.ref}</b>${l?'<br>Property: <b>'+esc(l.name)+'</b>':''}<br>We'll reach out to <b>${esc(d.phone)}</b> and <b>${esc(d.email)}</b> shortly to lock in your <b>${esc(d.when)}</b> tour.<br><br>Anything else I can help with?`, HOME_CHIPS);
+    } else if(t==='RESTART'){ startViewing(); }
+    else { convo={mode:'idle',step:0,data:{}}; botSay("No problem — request cancelled. Happy house hunting! 🏡", HOME_CHIPS); }
+  }
+}
+
+/* ---------- seller lead flow ---------- */
+const TIMELINES=['ASAP','1–3 months','3–6 months','Just curious'];
+function startSeller(){
+  convo={mode:'seller', step:1, data:{}};
+  botSay("Smart move! 💰 Homes in Dallas are moving fast right now.<br><br>First — what's the <b>property address</b> you're thinking of selling?",
+    [{label:'Cancel', value:'CANCEL'}]);
+}
+function sellerStep(raw){
+  const t=raw.trim();
+  if(/^cancel$/i.test(t)||t==='CANCEL'){ convo={mode:'idle',step:0,data:{}}; botSay("No worries! If you get curious about your home's value later, I'm right here. 😊", HOME_CHIPS); return; }
+  const d=convo.data;
+  if(convo.step===1){
+    if(t.length<5){ botSay("Could you share the full street address so we can pull accurate comps?"); return; }
+    d.address=t; convo.step=2;
+    botSay(`Got it — <b>${esc(t)}</b>. What's your timeline for selling?`,
+      TIMELINES.map(x=>({label:x, value:'TL:'+x})).concat([{label:'Cancel', value:'CANCEL'}]));
+  } else if(convo.step===2){
+    d.timeline = t.startsWith('TL:') ? t.slice(3) : t;
+    convo.step=3;
+    botSay("Perfect. And your <b>name</b> for the valuation report?");
+  } else if(convo.step===3){
+    if(t.length<2){ botSay("Just your name so we know who to send the report to?"); return; }
+    d.name=t; convo.step=4;
+    botSay(`Thanks, ${esc(t.split(' ')[0])}! What's the best <b>phone number</b> to reach you at? (10 digits)`);
+  } else if(convo.step===4){
+    const digits=t.replace(/\D/g,'');
+    if(digits.length<10){ botSay("That number looks incomplete — could you enter your <b>10-digit</b> phone number?"); return; }
+    d.phone='('+digits.slice(0,3)+') '+digits.slice(3,6)+'-'+digits.slice(6,10);
+    convo={mode:'idle',step:0,data:{}};
+    botSay(`All set, ${esc(d.name.split(' ')[0])}! ✅<br><br>We'll prepare a <b>free market analysis</b> for <b>${esc(d.address)}</b> (timeline: <b>${esc(d.timeline)}</b>) and call you at <b>${esc(d.phone)}</b> within 24 hours.<br><br>Anything else I can help with?`, HOME_CHIPS);
+  }
+}
+
+/* ---------- callback lead flow ---------- */
+function startLead(){
+  convo={mode:'lead', step:1, data:{}};
+  botSay("You got it! I'll have one of our licensed agents give you a ring. 📞<br>What's your <b>name</b>?", [{label:'Never mind',value:'CANCEL'}]);
+}
+function leadStep(raw){
+  const t=raw.trim();
+  if(/^cancel$/i.test(t)||t==='CANCEL'){ convo={mode:'idle',step:0,data:{}}; botSay("No worries! I'm still here if you need anything.", HOME_CHIPS); return; }
+  const d=convo.data;
+  if(convo.step===1){
+    if(t.length<2){ botSay("Could you share your name so our agent knows who to ask for?"); return; }
+    d.name=t; convo.step=2;
+    botSay(`Thanks, ${esc(t.split(' ')[0])}. And your <b>phone number</b>?`);
+  } else if(convo.step===2){
+    const digits=t.replace(/\D/g,'');
+    if(digits.length<10){ botSay("That number looks incomplete — could you enter your <b>10-digit</b> phone number?"); return; }
+    d.phone='('+digits.slice(0,3)+') '+digits.slice(3,6)+'-'+digits.slice(6,10);
+    convo={mode:'idle',step:0,data:{}};
+    botSay(`Done! ✅ An agent will call <b>${esc(d.phone)}</b> within 2 business hours. Anything else I can help with meanwhile?`, HOME_CHIPS);
+  }
+}
+
+/* ---------- main router ---------- */
+function handleInput(raw, fromChip){
+  const text=raw.trim();
+  if(!text) return;
+  if(convo.mode==='searchq'){ searchQStep(text); return; }
+  if(convo.mode==='viewing'){ viewingStep(text); return; }
+  if(convo.mode==='seller'){ sellerStep(text); return; }
+  if(convo.mode==='lead'){ leadStep(text); return; }
+  if(text.startsWith('VIEW:')){ startViewing(parseInt(text.slice(5),10)); return; }
+
+  switch(intent(text)){
+    case 'greeting':
+      botSay("Howdy! 👋 Great to see you. Are you hunting for a home, thinking of selling, or just have questions about the Dallas market?", HOME_CHIPS); break;
+    case 'search':
+      if(parseBudget(text)!==null||parseBeds(text)!==null){ doSearch(text); }
+      else startSearchQ();
+      break;
+    case 'aboutListing': {
+      const l=findListingByKeyword(text);
+      if(l){
+        botSay("Here's the scoop on that one 👇<br><br>"+listingCard(l,true),
+          [{label:`📅 Book a viewing`, value:'VIEW:'+l.id},{label:'🏠 Search homes', value:'search homes'}]);
+      } else {
+        botSay("Which home caught your eye? We've got three featured listings — <b>Lakewood</b>, <b>Uptown</b>, and <b>Lake Highlands</b> — or tell me your budget and I'll search for you.",
+          [{label:'🏠 Search homes', value:'search homes'}]);
+      }
+      break;
+    }
+    case 'viewing': startViewing(); break;
+    case 'sell': startSeller(); break;
+    case 'commission':
+      botSay("💰 Great question. In Texas, the typical total commission is around <b>5–6%</b> of the sale price, split between the buyer's and seller's brokerages — and it's <b>negotiable</b>.<br><br>For buyers working with us, the seller usually covers our commission, so our guidance costs you nothing out of pocket. Want the full breakdown from an agent?",
+        [{label:'📞 Have an agent call me', value:'human'}]); break;
+    case 'financing':
+      botSay("🏦 Smart thinking — getting <b>pre-approved</b> before you shop makes your offer way stronger.<br><br>Here's the quick version:<br>1️⃣ A lender checks your credit, income & debts (takes ~1 day)<br>2️⃣ You get a pre-approval letter stating what you can borrow<br>3️⃣ Sellers take your offers seriously<br><br>We work with several trusted local lenders — want an introduction?",
+        [{label:'📞 Yes, connect me', value:'human'},{label:'🏠 Search homes', value:'search homes'}]); break;
+    case 'process':
+      botSay("❓ <b>How buying works with us:</b><br><br>1️⃣ <b>Chat & pre-approval</b> — we learn your budget and goals<br>2️⃣ <b>Tour homes</b> — in person or virtual<br>3️⃣ <b>Make an offer</b> — we negotiate for you<br>4️⃣ <b>Inspection & appraisal</b> — we coordinate everything<br>5️⃣ <b>Closing day</b> — keys in hand! 🔑<br><br>Most buyers go from first tour to closing in <b>30–45 days</b>. Ready to start?",
+        [{label:'🏠 Search homes', value:'search homes'},{label:'📅 Book a viewing', value:'book a viewing'}]); break;
+    case 'areas':
+      botSay("📍 We serve the whole <b>Dallas–Fort Worth metroplex</b>, including:<br><br>• Dallas — Lakewood, Uptown, Lake Highlands, Oak Cliff<br>• Highland Park & University Park<br>• Plano, Frisco, McKinney, Allen<br>• Arlington, Irving, Richardson<br><br>Looking in a particular neighborhood?",
+        [{label:'🏠 Search homes', value:'search homes'}]); break;
+    case 'thanks':
+      botSay("Anytime, partner! 🤠 Happy to help. Anything else I can do for you?", HOME_CHIPS); break;
+    case 'bye':
+      botSay("Take care now! 🏡 When you're ready to find that dream home, you know where to find us.", []); break;
+    case 'human': startLead(); break;
+    default:
+      botSay("Hmm, that's a good one for a human agent. 🤔<br><br>I can have a licensed agent <b>call you back</b> within 2 business hours — or try asking me to <b>search homes</b>, <b>book a viewing</b>, or explain the <b>buying process</b>.",
+        [{label:'📞 Have an agent call me', value:'human'},{label:'🏠 Search homes', value:'search homes'},{label:'❓ Buying process', value:'buying process'}]);
+  }
+}
+
+function sendUser(){
+  const v=inputEl.value.trim();
+  if(!v) return;
+  inputEl.value='';
+  addUserMsg(v); clearChips();
+  handleInput(v,false);
+}
+</script>
+</body>
+</html>
